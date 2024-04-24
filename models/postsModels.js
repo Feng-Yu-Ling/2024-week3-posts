@@ -21,7 +21,7 @@ const postSchema = new mongoose.Schema(
       createdAt: {
         type: Date,
         // 使用Date.now作為函數引用，而非立即調用。若使用Date.now()將導致所有實例共享相同的創建時間
-        default: Date.now(), // default是指若沒有填寫，預設所給的值
+        default: Date.now, // default是指若沒有填寫，預設所給的值
         // select為false代表建立這個屬性，但不會被find()找出來而具保護效果
         // select作用範圍僅限於Node.js後端的查詢，對於其他非Node.js環境或工具可能不具有效性
         select: false
