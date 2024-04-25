@@ -92,7 +92,8 @@ router.patch('/:id', async function(req, res, next) {
         const data = req.body;
         const id = req.params.id;
         // 等待資料庫更新資料，因為這是一個異步操作，會返回promise，所以需要加await
-        const searchResult = await Post.findByIdAndUpdate(id, data);
+        // 在findByIdAndUpdate()加入第三個參數 {runValidators:true}讓它也執行Schema驗證
+        const searchResult = await Post.findByIdAndUpdate(id, data, {runValidators:true});
         if(!searchResult){
             res.status(404).json({
                 "status":"false",
@@ -111,7 +112,7 @@ router.patch('/:id', async function(req, res, next) {
     catch(error){
         res.status(400).json({
             "status":"false",
-            "message":"post ID格式不正確"
+            "message":"post ID格式不正確或content為null"
         })
     }
     
